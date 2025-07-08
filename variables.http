@@ -1,0 +1,74 @@
+@base_url = http://localhost:3000/api
+
+# GET {{base_url}}/Documents
+
+POST {{base_url}}/Documents/6861c0a54045226c7c8fd5df
+
+
+--boundaryJose123
+Content-Disposition: form-data; name="filing_letter"; filename="01 - CARTA DE RADICACION DE CUENTA DE COBRO.pdf"
+Content-Type: application/pdf
+
+< ./Archivos_de_prueba/01 - CARTA DE RADICACION DE CUENTA DE COBRO.pdf
+
+--boundaryJose123
+Content-Disposition: form-data; name="certificate_of_compliance"; filename="02 - CERTIFICADO DE CUMPLIMIENTO.pdf"
+Content-Type: application/pdf
+
+< ./Archivos_de_prueba/02 - CERTIFICADO DE CUMPLIMIENTO.pdf
+
+--boundaryJose123
+Content-Disposition: form-data; name="signed_certificate_of_compliance"; filename="03 - CERTIFICADO DE CUMPLIMIENTO FIRMADO.pdf"
+Content-Type: application/pdf
+
+< ./Archivos_de_prueba/03 - CERTIFICADO DE CUMPLIMIENTO FIRMADO.pdf
+
+--boundaryJose123
+Content-Disposition: form-data; name="activity_report"; filename="04 - INFORME DE ACTIVIDADES.pdf"
+Content-Type: application/pdf
+
+< ./Archivos_de_prueba/04 - INFORME DE ACTIVIDADES.pdf
+
+--boundaryJose123
+Content-Disposition: form-data; name="tax_quality_certificate"; filename="05 - CERTIFICADO DE CALIDAD TRIBUTARIA.pdf"
+Content-Type: application/pdf
+
+< ./Archivos_de_prueba/05 - CERTIFICADO DE CALIDAD TRIBUTARIA.pdf
+
+--boundaryJose123
+Content-Disposition: form-data; name="social_security"; filename="06 - SEGURIDAD SOCIAL.pdf"
+Content-Type: application/pdf
+
+< ./Archivos_de_prueba/06 - SEGURIDAD SOCIAL.pdf
+
+--boundaryJose123
+Content-Disposition: form-data; name="rut"; filename="07 - RUT.pdf"
+Content-Type: application/pdf
+
+< ./Archivos_de_prueba/07 - RUT.pdf
+
+--boundaryJose123
+Content-Disposition: form-data; name="rit"; filename="08 - RIT.pdf"
+Content-Type: application/pdf
+
+< ./Archivos_de_prueba/08 - RIT.pdf
+
+--boundaryJose123
+Content-Disposition: form-data; name="Trainings"; filename="09 - CAPACITACIONES.pdf"
+Content-Type: application/pdf
+
+< ./Archivos_de_prueba/09 - CAPACITACIONES.pdf
+
+--boundaryJose123
+Content-Disposition: form-data; name="initiation_record"; filename="10 - ACTA DE INICIO.pdf"
+Content-Type: application/pdf
+
+< ./Archivos_de_prueba/10 - ACTA DE INICIO.pdf
+
+--boundaryJose123
+Content-Disposition: form-data; name="account_certification"; filename="11 - CERTIFICADO DE CUENTA.pdf"
+Content-Type: application/pdf
+
+< ./Archivos_de_prueba/11 - CERTIFICADO DE CUENTA.pdf
+
+--boundaryJose123--

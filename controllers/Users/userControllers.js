@@ -2,6 +2,7 @@ const User = require("../../models/Users/User");
 const bcrypt = require("bcryptjs");
 const Contractor = require("../../models/Users/Contractor");
 const Functionary = require("../../models/Users/Functionary");
+const Contracto = require("../../models/Contracto/ContractManagement");
 
 //Obtener todos los usuarios (ADMIN)
 
@@ -281,11 +282,32 @@ exports.updateUser = async (req, res) => {
     }
     let mesaje = state || "No hay en el estado ";
 
+    console.log(req.body.contractId);
+     if ("contractId" in req.body && updatedUser.role === "contratista"){
+      // Verificar contrado
+      try{
+        const verifyContract = await Contracto.findById(req.body.contractId);
+        if(!verifyContract){
+          return res.status(404).json({
+            success:false,
+            message:'Contrato no existe'
+          })
+        }
+
+      }catch(error){
+        console.log(
+          "[CONTROLLERS USER] Error al encontrar un contrato",
+          error
+        );
+
+      }
+    }
+
     // Cambiar el contrato de un contratista
     if ("contractId" in req.body && updatedUser.role === "contratista") {
       try {
-        // const contractId = await ContractManagement.findOne({user:updatedUser._id});
         const contractId = await Contractor.findOne({ user: updatedUser._id });
+
         if (contractId) {
           contractId.contract = req.body.contractId;
           await contractId.save();
@@ -302,12 +324,10 @@ exports.updateUser = async (req, res) => {
     }
 
     // Cambiar la contraseña del usuario
-   if ("password" in req.body) {
-    updatedUser.password = req.body.password; 
-    await updatedUser.save(); 
-  
-}
-
+    if ("password" in req.body) {
+      updatedUser.password = req.body.password;
+      await updatedUser.save();
+    }
 
     return res.status(200).json({
       success: true,
@@ -317,20 +337,15 @@ exports.updateUser = async (req, res) => {
   } catch (error) {
     // Manejar errores
     if (error.code === 11000) {
-      
       const campo = Object.keys(error.keyValue);
-      const valor = error.keyValue[campo]; 
+      const valor = error.keyValue[campo];
       return res.status(400).json({
         success: false,
         message: `Ya existe un ${campo} con : ${valor} `,
       });
     }
 
-    
-
-    console.log(
-      "[CONTROLLLERS USER] Erro al actualizar el usuario",
-      error    );
+    console.log("[CONTROLLLERS USER] Erro al actualizar el usuario", error);
 
     return res.status(500).json({
       success: false,

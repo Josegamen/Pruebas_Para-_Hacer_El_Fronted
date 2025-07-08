@@ -5,10 +5,12 @@ const cors = require('cors');
 const morgan = require('morgan');
 const config = require('./config');
 const { MongoClient, ObjecId } = require('mongodb');
+
 // Llamar funcion para inactivar los contratos
 require('./controllers/Contracto/inactivarContratos')
 
 //Importar ruta Jose
+
 // Inicio de sesion
 const authRoutes = require('./routes/Login/authRoutes');
 // Usuarios 
@@ -17,15 +19,13 @@ const UserRoutes = require('./routes/Users/userRoutes');
 // Contratos
 const ContractManagementRoutes = require('./routes/Contracto/ContractManagementRoutes');
 
+// Gestion Documental
+const DocumentManagementRoutes = require('./routes/Document_Management/DocumentManagementRouter');
+
+//Gestion de datos
+const DataManagement = require('./routes/DataManagement/DataManagementRouter');
+
 const mongoClient = new MongoClient(process.env.MONGODB_URI);
-
-// Importar rutas 
-//const authRoutes = require('./routes/authRoutes');
-//const userRoutes = require('./routes/userRoutes');
-//const categoryRoutes = require('./routes/categoryRoutes');
-//const subcategoryRoutes = require('./routes/subcategoryRoutes');
-//const productRoutes = require('./routes/productRoutes');
-
 
 (async () => {
     await mongoClient.connect();
@@ -51,13 +51,10 @@ app.use('/api/auth',authRoutes);
 app.use('/api/Users',UserRoutes);
 // Contratos
 app.use('/api/Contracts',ContractManagementRoutes);
-
-// Rutas 
-//app.use('/api/auth', authRoutes);
-//app.use('/api/users', userRoutes);
-//app.use('/api/categories', categoryRoutes)
-//app.use('/api/subcategories', subcategoryRoutes);
-//app.use('/api/product', productRoutes);
+// Gestion documental
+app.use('/api/Documents',DocumentManagementRoutes)
+// Gestion de datos
+app.use('/api/Data',DataManagement)
 
 // Inicio del servidor
 const PORT = process.env.PORT || 3000;
