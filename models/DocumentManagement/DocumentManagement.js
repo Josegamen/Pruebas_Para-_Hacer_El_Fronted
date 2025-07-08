@@ -7,18 +7,19 @@ const Document_Management = new mongoose.Schema({
     required: [true, "Fecha de creacion requerida"],
   },
   retention_time: {
-    type: Number,
+    type: String,
     required: [true, "Tiempo de retencio requerido"],
   },
   ip: {
-    type: Number,
+    type: String,
     required: [true, "La ip es requerida"],
   },
   state: {
     type: String,
     required: [true, "El Estado es requerido"],
-    default: "Activo",
     enum: ["Activo", "Inactivo"],
+    default: "Activo",
+    
   },
   description: {
     type: String,

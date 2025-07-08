@@ -5,6 +5,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 const config = require('./config');
 const { MongoClient, ObjecId } = require('mongodb');
+const path = require("path");
 
 // Llamar funcion para inactivar los contratos
 require('./controllers/Contracto/inactivarContratos')
@@ -53,8 +54,16 @@ app.use('/api/Users',UserRoutes);
 app.use('/api/Contracts',ContractManagementRoutes);
 // Gestion documental
 app.use('/api/Documents',DocumentManagementRoutes)
+// Ver pdf
+app.use('./Files', express.static(path.join(__dirname, 'uploads')));
+
+
+
+
 // Gestion de datos
 app.use('/api/Data',DataManagement)
+
+
 
 // Inicio del servidor
 const PORT = process.env.PORT || 3000;

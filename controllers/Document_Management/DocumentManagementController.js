@@ -151,12 +151,14 @@ exports.CreateDocument_Management = async (req, res) => {
       retention_time,
       state,
       version,
-      user_create,
-      user_edition,
     } = req.body;
     console.log(description);
+
     // Usuario contratista
-    const user_contrac = req.params.user_contract;
+    const user = req.params.user_contract;
+    const user_contrac = await Contractor.findOne({user:user});
+ 
+
 
     if (
       !description ||
@@ -164,8 +166,8 @@ exports.CreateDocument_Management = async (req, res) => {
       !retention_time ||
       !state ||
       !version ||
-      !user_contrac ||
-      !user_edition
+      !user_contrac
+
     ) {
       return res.status(400).json({
         success: false,
@@ -173,25 +175,17 @@ exports.CreateDocument_Management = async (req, res) => {
       });
     }
 
-    // // Buscar el nombre del usuario
-    // const Chamito = await Contractor.findById(user_contrac);
-    // // Buscar el otro
-    // const Chamito1 = await User.findOne(Chamito.user);
 
-    // console.log(Chamito);
-    // console.log("Id del contratista pero en user");
-    // console.log(Chamito1);
 
-    console.log(user_contrac);
     const newDocumentManagement = new Document_Management({
       creation_date,
-      retention_time,
-      ip,
-      state,
+      retention_time:'20 añops',
+      ip:req.ip,
+      state :"Activo",
       description,
       version,
-      user_create,
-      user_edition,
+      user_create :user,
+      user_edition: "No se ha editado",
       user_contrac,
       filing_letter: File1,
       certificate_of_compliance: File2,
@@ -241,7 +235,7 @@ exports.UpdateDocument_Management = async (req, res) => {
         .json({ success: false, message: "Documento no encontrado" });
     }
 
-    const userId = req.body.user_contract;
+    const userId = req.params.user_contract;
     const newFiles = req.files;
     const updatedFields = {};
 
