@@ -133,6 +133,13 @@ exports.createUser = async (req, res) => {
       });
     }
 
+    if(password.length < 8){
+      return res.status(400).json({
+        success:false,
+        message:'La contraseña tiene que ser mayor a 8 caracteres'
+      })
+    }
+
     if (role !== "contratista" && role !== "funcionario" && role !== "admin") {
       return res.status(401).json({
         success: false,
@@ -325,6 +332,12 @@ exports.updateUser = async (req, res) => {
 
     // Cambiar la contraseña del usuario
     if ("password" in req.body) {
+      if(req.body.password < 8){
+        return res.status(400).json({
+          success:false,
+          message:'La contraseña tiene que ser mayor a 8 caracteres'
+        })
+      }
       updatedUser.password = req.body.password;
       await updatedUser.save();
     }
